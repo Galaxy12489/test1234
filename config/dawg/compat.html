@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Подключите сюда библиотеку иконок, если вы ее используете (Font Awesome, Material Icons и т.д.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="dark-theme"> <!-- Добавим класс dark-theme для body -->
+
+    <header class="header"> <!-- Добавим класс header -->
+        <div class="header-content">
+            <h1>PC Builder</h1>
+            <p>Configure your dream machine with our advanced power calculator and component selector</p>
+        </div>
+    </header>
+
+    <main class="main"> <!-- Добавим класс main -->
+        <section class="component-selection section"> <!-- Добавим класс section -->
+            <h2 class="section-title">Выберите комплектующие</h2> <!-- Добавим класс section-title -->
+            <form action="/check_compatibility" method="post" class="component-form"> <!-- Добавим класс component-form -->
+                <div class="form-group">
+                    <label for="cpu"><i class="fa fa-microchip"></i> CPU:</label>
+                    <select name="cpu" id="cpu" class="component-select"> <!-- Добавим класс component-select -->
+                        {% for cpu in cpus %}
+                            <option value="{{ cpu.id }}">{{ cpu.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="motherboard"><i class="fa fa-server"></i> Материнская плата:</label>
+                    <select name="motherboard" id="motherboard" class="component-select">
+                        {% for motherboard in motherboards %}
+                            <option value="{{ motherboard.id }}">{{ motherboard.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ram"><i class="fa fa-memory"></i> RAM:</label>
+                    <select name="ram" id="ram" class="component-select">
+                        {% for ram in ram %}
+                                                    <option value="{{ ram.id }}">{{ ram.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="gpu"><i class="fa fa-fan"></i> GPU:</label>
+                    <select name="gpu" id="gpu" class="component-select">
+                        {% for gpu in gpus %}
+                        <option value="{{ gpu.id }}" data-power="{{ gpu.power_consumption }}">
+                            <i class="fa fa-fan"></i> {{ gpu.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="power_supply"><i class="fa fa-plug"></i> Блок питания:</label>
+                    <select name="power_supply" id="power_supply" class="component-select">
+                        {% for power_supply in power_supplies %}
+                            <option value="{{ power_supply.id }}">{{ power_supply.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-button">Проверить совместимость</button> <!-- Добавим класс submit-button -->
+            </form>
+        </section>
+
+        <section class="power-calculator section"> <!-- Добавим класс section -->
+            <h2 class="section-title">Калькулятор мощности</h2> <!-- Добавим класс section-title -->
+            <p>Введите предполагаемое потребление энергии других компонентов (в ваттах):</p>
+            <input type="number" id="other-power" name="other_power" value="0" class="power-input"> <!-- Добавим класс power-input -->
+            <p id="total-power">Общая мощность: 0 Вт</p>
+        </section>
+
+        <section class="build-summary section"> <!-- Добавим класс section -->
+            <h2 class="section-title">Build Summary</h2> <!-- Добавим класс section-title -->
+            <div class="summary-item">
+                <span>Total Power Consumption:</span>
+                <span id="total-power-consumption">0W</span>
+            </div>
+            <div class="summary-item">
+                <span>Total Price:</span>
+                <span id="total-price">$0</span>
+            </div>
+            <button class="proceed-button">Proceed to Checkout ></button> <!-- Добавим класс proceed-button -->
+        </section>
+    </main>
+
+    <footer class="footer"> <!-- Добавим класс footer -->
+        <p>&copy; 2025 PCBuilder</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
