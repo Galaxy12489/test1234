@@ -1,0 +1,2 @@
+[deploy]
+startCommand = "kocop51v.up.railway.app:app --bind 0.0.0.0:$PORT"  # Ваша команда запуска"
